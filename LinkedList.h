@@ -17,7 +17,7 @@ public:
 	int deleteAll();
 	T get(int pos);
 	T set(T data, int pos);
-	bool Change(int pos1, int pos2);
+	bool change(int pos1, int pos2);
 	int getSize();
 	bool isEmpty();
 	void print();
@@ -191,7 +191,7 @@ T LinkedList<T>::set(T data, int pos){
 
 // intercambia los elementos que se encuentran en las posiciones n y m
 template <class T>
-bool LinkedList<T>::Change(int pos1, int pos2){
+bool LinkedList<T>::change(int pos1, int pos2){
 	if(pos1 == pos2){
 		return true;
 	}
@@ -200,7 +200,7 @@ bool LinkedList<T>::Change(int pos1, int pos2){
 		for(int i=0; i<pos1; i++){
 			curr1 = curr1->getNext();
 		}
-		Node<T> *curr2 = curr1;
+		Node<T> *curr2 = head;
 		for(int i=0; i<pos2; i++){
 			curr2 = curr2->getNext();
 		}
@@ -209,7 +209,7 @@ bool LinkedList<T>::Change(int pos1, int pos2){
 		aux = curr1->getData();
 		curr1->setData(curr2->getData());
 		curr2->setData(aux);
-
+		
 		return true;
 	}
 	else{
@@ -240,6 +240,8 @@ void LinkedList<T>::print(){
 			curr = curr->getNext();
 		}
 		std::cout << "\n";
+	} else {
+		std::cout << "Lista vacia\n";
 	}
 }
 
@@ -249,7 +251,7 @@ void LinkedList<T>::reverse(){
 	if(Size > 1){
 		for(int x=(Size-1); x>0; x--){
 			for(int aux=x; aux>0; aux--){
-				this->Change(0, aux);
+				this->change(0, aux);
 			}
 		}
 	}
@@ -285,14 +287,12 @@ void LinkedList<T>::operator+=(LinkedList<T> _lista){
 	int x = _lista.getSize();
 	for(int i=0; i<x; i++){
 		this->addLast(_lista.get(i));
-		std::cout<<"H"<<std::endl;
 	}
 }
 
 // constructor parametrizado de la lista
 template <class T>
 LinkedList<T>::LinkedList(LinkedList &LL){
-	std::cout << "entra" << std::endl;
 	head = NULL;
 	Size = 0;
 
